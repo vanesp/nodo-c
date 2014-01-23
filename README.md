@@ -16,21 +16,20 @@ This has to be written in C with:
 - non-blocking serial I/O
 - HiRedis (https://github.com/redis/hiredis)
 - Jansson for dealing with json (http://www.digip.org/jansson/ or https://github.com/akheron/jansson)
-
 - libevent is installed: sudo apt-get install libev4 libev-dev
 
 Luckily the stuff is straightforward with little modification of the message content...
 
 So the code consists of two programs:
 
-    publish_nodo
+    publishnodo
      read serial
         get message
         json message
         publish message
         
     cmdreceiver    
-     redis_subscribe
+     redis subscribe
         get message event
         unpack json
         write to serial port

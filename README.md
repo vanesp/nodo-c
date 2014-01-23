@@ -23,17 +23,17 @@ Luckily the stuff is straightforward with little modification of the message con
 
 So the code consists of two programs:
 
-publish_nodo
- read serial
-    get message
-    json message
-    publish message
-    
-cmdreceiver    
- redis_subscribe
-    get message event
-    unpack json
-    write to serial port
+    publish_nodo
+     read serial
+        get message
+        json message
+        publish message
+        
+    cmdreceiver    
+     redis_subscribe
+        get message event
+        unpack json
+        write to serial port
 
 
 ## Workings

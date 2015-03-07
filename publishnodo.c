@@ -113,33 +113,35 @@ int main(int argc, char **argv) {
     // Main loop
    
 	while ((ret = readln_time(buf, 10))) {
-		if (ret > 0) {
-            // remove extraneous characters
-            strip(buf, IS_CTRL); 
-            if (strlen(buf) > 0) {
-                // fprintf (stderr, "Received %s\n", buf);
-                // and the received entry goes into the parameter field
-                json_object_set (root, "p", json_pack("s", buf));
-                msg = json_dumps (root, JSON_COMPACT | JSON_ESCAPE_SLASH);
+            if (ret > 0) {
+                // remove extraneous characters
+                strip(buf, IS_CTRL); 
+                if (strlen(buf) > 0) {
+                    // fprintf (stderr, "Received %s\n", buf);
+                    // and the received entry goes into the parameter field
+                    json_object_set (root, "p", json_pack("s", buf));
+                    msg = json_dumps (root, JSON_COMPACT | JSON_ESCAPE_SLASH);
     
-                if (bStderr) fprintf (stderr, "Publish %s\n", msg); 
+                    if (strcmp(msg, "Error in command.\n") != 0) {
+                        if (bStderr) fprintf (stderr, "Publish %s\n", msg); 
     
-                /* Publish this set */
-                reply = redisCommand(c,"PUBLISH ss:event %s", msg);
-                // printf("PUBLISH: %s\n", reply->str);
-                freeReplyObject(reply);
-            } // if strlen > 0
-		}		// if
-	}			// while
+                        /* Publish this set */
+                        reply = redisCommand(c,"PUBLISH ss:event %s", msg);
+                        // printf("PUBLISH: %s\n", reply->str);
+                        freeReplyObject(reply);
+                    }
+                } // if strlen > 0
+            }	// if
+	}	// while
 
 
 	close(fdDevice);
 	fprintf(stderr, "%s finished\n", progname);
-    fflush(stderr);
+	fflush(stderr);
 
-    /* Disconnects and frees the context */
-    redisFree(c);
+	/* Disconnects and frees the context */
+	redisFree(c);
 
-    return 0;
+	return 0;
 }
 

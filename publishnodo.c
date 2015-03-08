@@ -17,6 +17,8 @@
 #define IS_DIGIT (1 << 3) /* not used, just give you an idea */
  
 unsigned int char_tbl[256] = {0};
+
+char faulty[] = "Error in command.";
  
 /* could use ctypes, but then they pretty much do the same thing */
 void init_table() {
@@ -72,7 +74,8 @@ int main(int argc, char **argv) {
 	signal(SIGKILL, sig_handler);
 
 	// Sleep for a bit so everything settles down
-	sleep(62);
+	// pve: was 64
+	sleep(2);
 
 	fprintf(stderr, "%s started\n", progname);
    
@@ -112,17 +115,17 @@ int main(int argc, char **argv) {
 
     // Main loop
    
-	while ((ret = readln_time(buf, 10))) {
-            if (ret > 0) {
+	while ((ret = readln_time(buf,100))) {
+            if (ret > 0 && strlen(buf) > 0) {
                 // remove extraneous characters
                 strip(buf, IS_CTRL); 
                 if (strlen(buf) > 0) {
-                    // fprintf (stderr, "Received %s\n", buf);
-                    // and the received entry goes into the parameter field
-                    json_object_set (root, "p", json_pack("s", buf));
-                    msg = json_dumps (root, JSON_COMPACT | JSON_ESCAPE_SLASH);
+                    if (bStderr) fprintf (stderr, "Received Buf %s\n", buf);
     
-                    if (strcmp(msg, "Error in command.\n") != 0) {
+                    if (strncmp(buf, faulty, strlen(faulty)) != 0) {
+                        // and the received entry goes into the parameter field
+                        json_object_set (root, "p", json_pack("s", buf));
+                        msg = json_dumps (root, JSON_COMPACT | JSON_ESCAPE_SLASH);
                         if (bStderr) fprintf (stderr, "Publish %s\n", msg); 
     
                         /* Publish this set */
@@ -144,4 +147,3 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
-

@@ -138,7 +138,7 @@ int initport(int rw)
 	// set read functions to return after VTIME (to return immediately, replace 0 with FNDELAY)
 	fcntl(fdDevice, F_SETFL, 0);
 
-	// now we'ĺl set-up the port parameters
+	// now we will set-up the port parameters
 	// get the current options for the port
 	tcgetattr(fdDevice, &options);
 	// set baud rates to 57600
@@ -147,6 +147,11 @@ int initport(int rw)
 	// select 1 second timeout
 	options.c_cc[VMIN] = 0;
 	options.c_cc[VTIME] = 10;
+
+	// set to support xon/xoff on input from the Nodo, ignore carr. ret
+	options.c_iflag &= ~(IXON |IGNCR);
+	// and the same on output
+	options.c_oflag &= ~(IXON |ONLRET);
 
 	// set the new options immediately
 	tcsetattr(fdDevice, TCSANOW, &options);

@@ -12,7 +12,6 @@
 #include "globals.h"
 #include "comms.h"
 
-
 void onMessage(redisAsyncContext *c, void *reply, void *privdata) {
     redisReply *r = reply;
     json_t *root;
@@ -72,7 +71,7 @@ void onMessage(redisAsyncContext *c, void *reply, void *privdata) {
                     } else {
                         strcat (str, "Off;");
                     }
-                     if (bStderr) fprintf(stderr, "%s\n", str);
+                    if (bStderr) fprintf(stderr, "%s\n", str);
                     // write string to serial port
                     writestring (str);
                }      
@@ -102,7 +101,7 @@ int main (int argc, char **argv) {
     signal(SIGPIPE, SIG_IGN);
 
     // sleep for a while, before starting up, so that the system settles down
-    sleep (60);
+    sleep (30);
 
     redisAsyncContext *c = redisAsyncConnect("portux.local", 6379);
     if (c->err) {
@@ -122,6 +121,10 @@ int main (int argc, char **argv) {
 		fflush(stderr);
 		exit(1);
 	}
+
+    // Setup the first setting of the device
+    // So that it does not try to send IR commands
+    writestring("TransmitSettings RF;");
 
     redisLibevAttach(EV_DEFAULT_ c);
     redisAsyncSetConnectCallback(c,connectCallback);

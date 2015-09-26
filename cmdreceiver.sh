@@ -18,7 +18,7 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Receive redis commands for nodo"
 NAME=cmdreceiver
-DAEMON=/home/pi/nodo-c/$NAME
+DAEMON=/home/pve/nodo-c/$NAME
 DAEMON_ARGS=""
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME

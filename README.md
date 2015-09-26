@@ -1,16 +1,12 @@
 # Nodo demo... 
 
-Using socketstream and node.js talk to a NodoSmall via the serial port
-of a Raspberry PI. Create a live user interface and allow control of 
+Talk to a NodoSmall via the serial port
+of a Raspberry PI. Collect messages from redis using pubsub and control
 lights via the KAKU (Klik Aan-Klik Uit) commands.
 
 ## Redesign
 
-The Node.js application just acts as a monitor program... it does not interact with the
-serial port anymore. The reason for this is because the node.js application does not 
-work in the background if no browser is opened for http://rpi1.local:3333
-
-This has to be written in C with:
+This program is written in C with:
 
 - libevent (http://software.schmorp.de/pkg/libev.html)
 - non-blocking serial I/O
@@ -66,15 +62,4 @@ are transmitted immediately).
 
 When the nodo is ultimately connected directly to the Portux, the redis database will
 reside there and this code is no longer required.
-
-## Requirements
-
-Redis is installed on the Portux and invoked through socketstream as follows:
-
-    # host changed to the Portux machine
-    ss.session.store.use 'redis' 
-        host: 'portux.local'
-
-
-
 

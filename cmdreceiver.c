@@ -103,7 +103,7 @@ int main (int argc, char **argv) {
     // sleep for a while, before starting up, so that the system settles down
     sleep (30);
 
-    redisAsyncContext *c = redisAsyncConnect("portux.local", 6379);
+    redisAsyncContext *c = redisAsyncConnect("192.168.1.107", 6379);
     if (c->err) {
         fprintf(stderr, "error: %s\n", c->errstr);
         return 1;

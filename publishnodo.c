@@ -79,7 +79,9 @@ int main(int argc, char **argv) {
 
 	fprintf(stderr, "%s started\n", progname);
    
-    const char *hostname = (argc > 1) ? argv[1] : "192.168.1.107";
+    // This used to be portux.local, but portux is not great at spreading its address, so use IP
+    // since it now runs on the portux, use localhost   
+    const char *hostname = (argc > 1) ? argv[1] : "127.0.0.1";
     int port = (argc > 2) ? atoi(argv[2]) : 6379;
 
     // initialize the stripping table

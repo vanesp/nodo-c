@@ -10,8 +10,9 @@ This program is written in C with:
 
 - libevent (http://software.schmorp.de/pkg/libev.html)
 - non-blocking serial I/O
-- HiRedis (https://github.com/redis/hiredis)
-- Jansson for dealing with json (http://www.digip.org/jansson/ or https://github.com/akheron/jansson)
+- HiRedis (https://github.com/redis/hiredis) using git clone https://github.com/redis/hiredis.git. Then build etc
+- Jansson for dealing with json (http://www.digip.org/jansson/ or https://github.com/akheron/jansson) using
+git clone https://github.com/akheron/jansson.git
 - libevent is installed: sudo apt-get install libev4 libev-dev
 
 Luckily the stuff is straightforward with little modification of the message content...

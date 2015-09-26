@@ -1,4 +1,4 @@
-CC_OPTS = -Wall -lev -lhiredis -ljansson -ggdb3 -I/usr/include/hiredis -std=c99
+CC_OPTS = -Wall -lev -lhiredis -ljansson -ggdb3 -I/usr/local/include/hiredis -std=c99
 
 all: publishnodo cmdreceiver
 

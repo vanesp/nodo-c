@@ -7,5 +7,6 @@ int fdDevice;			//      Filedescriptor of serial port.
 char bStderr = 1;		//      Boolean, show commands on stderr?
 
 // Device
-char *device =  "/dev/ttyAMA0"; /* serial port on the rpi1 */
+// char *device =  "/dev/ttyAMA0";	// serial port on the Raspberry Pi
+char *device = "/dev/ttyS2";		// serial port on the Portux (IF1)
 

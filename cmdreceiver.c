@@ -103,7 +103,9 @@ int main (int argc, char **argv) {
     // sleep for a while, before starting up, so that the system settles down
     sleep (30);
 
-    redisAsyncContext *c = redisAsyncConnect("192.168.1.107", 6379);
+    // Redis runs on portux.local, but the portux is not great at spreading it's address, so use IP
+    // This code now rund on the same machine, so use localhost
+    redisAsyncContext *c = redisAsyncConnect("127.0.0.1", 6379);
     if (c->err) {
         fprintf(stderr, "error: %s\n", c->errstr);
         return 1;

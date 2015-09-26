@@ -128,7 +128,8 @@ int initport(int rw)
         
 	// open for reading and writing, not as controlling terminal, and ignore DCD flag
 	if (fdDevice < 0) {
-		fprintf(stderr, "cannot open serial port on ttyAMA0\n");
+                // on Raspberry pi, /dev/ttyAMA0, on Portux /dev/ttyS2
+		fprintf(stderr, "cannot open serial port for device\n");
 		exit(EXIT_FAILURE);
 	}
 

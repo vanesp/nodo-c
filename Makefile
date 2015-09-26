@@ -18,6 +18,7 @@ comms.o: comms.c comms.h
 install:
 	cp publishnodo.sh /etc/init.d/publishnodo
 	cp cmdreceiver.sh /etc/init.d/cmdreceiver
-	update-rc.d publishnodo
-	update-rc.d cmdreceiver
+	update-rc.d publishnodo defaults
+	update-rc.d cmdreceiver defaults
+
 	

@@ -1,4 +1,5 @@
 CC_OPTS = -Wall -lev -lhiredis -ljansson -ggdb3 -I/usr/local/include/hiredis -std=c99
+LIB = -L/usr/local/lib
 
 all: publishnodo cmdreceiver
 
@@ -6,10 +7,10 @@ clean:
 	rm -f *.o
 
 publishnodo: publishnodo.c globals.h comms.o
-	$(CC) $(CC_OPTS) -o $@ comms.o $<
+	$(CC) $(CC_OPTS) $(LIB) -o $@ comms.o $<
 
 cmdreceiver: cmdreceiver.c  globals.h comms.o
-	$(CC) $(CC_OPTS) -o $@ comms.o $<
+	$(CC) $(CC_OPTS) $(LIB) -o $@ comms.o $<
 
 comms.o: comms.c comms.h
 	$(CC) -c $<

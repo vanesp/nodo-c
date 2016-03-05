@@ -137,6 +137,8 @@ int main(int argc, char **argv) {
                     }
                 } // if strlen > 0
             }	// if
+            // Force the buffer to be empty
+            buf[0] = (char) 0;
 	}	// while
 
 

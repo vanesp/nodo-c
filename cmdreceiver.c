@@ -65,15 +65,20 @@ void onMessage(redisAsyncContext *c, void *reply, void *privdata) {
                 if (strcmp(json_string_value(type), "Switch") == 0) {
                     // Create the command to be executed
                     command = json_string_value(quantity);
-                    strcpy (str, command);
-                    if (json_is_true(value)) {
-                        strcat (str, "On;");
-                    } else {
-                        strcat (str, "Off;");
+                    // if command is empty, don't do the following
+                    if (strlen(command) != 0) {
+                        strcpy (str, command);
+                        if (json_is_true(value)) {
+                            strcat (str, "On;");
+                            } else {
+                            strcat (str, "Off;");
+                        }
+                        if (bStderr) fprintf(stderr, "Send %s\n", str);
+                        // write string to serial port, no need for \n to be attached
+                        writestring (str);
+                        // after a  command sleep at least a quarter of a second
+                        msleep (250);
                     }
-                    if (bStderr) fprintf(stderr, "%s\n", str);
-                    // write string to serial port
-                    writestring (str);
                }      
             }
          }
@@ -101,7 +106,7 @@ int main (int argc, char **argv) {
     signal(SIGPIPE, SIG_IGN);
 
     // sleep for a while, before starting up, so that the system settles down
-    sleep (30);
+    sleep (10);
 
     // Redis runs on portux.local, but the portux is not great at spreading it's address, so use IP
     // This code now rund on the same machine, so use localhost

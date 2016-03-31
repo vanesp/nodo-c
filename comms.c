@@ -10,7 +10,6 @@
 #include <unistd.h>		    //      POSIX definitie
 #include <time.h>		    //      voor ErrorLogging, timespec
 
-
 #include "comms.h"
 
 void m_hupcl(int fd, int on)
@@ -150,8 +149,8 @@ int initport(int rw)
 	options.c_cc[VTIME] = 10;
 
 	// set to support xon/xoff on input from the Nodo, ignore carr. ret
-	options.c_iflag &= ~(IXON |IGNCR);
-	// and the same on output
+	options.c_iflag &= ~(IXOFF |IGNCR);
+	// and the same on output, do not output CR
 	options.c_oflag &= ~(IXON |ONLRET);
 
 	// set the new options immediately

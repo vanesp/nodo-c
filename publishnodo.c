@@ -18,7 +18,7 @@
  
 unsigned int char_tbl[256] = {0};
 
-char faulty[] = "Error in command.";
+char faulty[] = "?";		// used to be "Error in command."
  
 /* could use ctypes, but then they pretty much do the same thing */
 void init_table() {
